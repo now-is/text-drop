@@ -2,6 +2,12 @@ const fastify = require('fastify')({
 	logger: true
 })
 
+const path = require('path')
+
+fastify.register(require('@fastify/static'), {
+	root: path.join(__dirname, 'public')
+})
+
 fastify.get('/', function (request, reply) {
 	reply.send({ hello: 'world' })
 })
