@@ -7,6 +7,7 @@
 	<p>hark, a form</p>
 
 	<form action="/text-drop" method="post">
+		<input type="hidden" name="_token" value="%CSRF_TOKEN%">
 		<fieldset>
 			<legend>form</legend>
 			<textarea name="dropped_text" rows="40" cols="40"></textarea></p>

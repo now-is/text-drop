@@ -1,8 +1,10 @@
 {
 	"dependencies": {
+		"@fastify/cookie": "^8.3.0",
 		"@fastify/csrf-protection": "^6.3.0",
 		"@fastify/formbody": "^7.4.0",
 		"@fastify/static": "^6.10.2",
-		"fastify": "^4.15.0"
+		"fastify": "^4.15.0",
+		"replacestream": "^4.0.3"
 	}
 }
