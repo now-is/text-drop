@@ -1,10 +1,12 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@fastify/formbody': ^7.4.0
   '@fastify/static': ^6.10.2
   fastify: ^4.15.0
 
 dependencies:
+  '@fastify/formbody': 7.4.0
   '@fastify/static': 6.10.2
   fastify: 4.18.0
 
@@ -35,6 +37,13 @@ packages:
     resolution: {integrity: sha512-aZAXGYo6m22Fk1zZzEUKBvut/CIIQe/BapEORnxiD5Qr0kPHqqI69NtEMCme74h+at72sPhbkb4ZrLd1W3KRLA==}
     dependencies:
       fast-json-stringify: 5.7.0
+    dev: false
+
+  /@fastify/formbody/7.4.0:
+    resolution: {integrity: sha512-H3C6h1GN56/SMrZS8N2vCT2cZr7mIHzBHzOBa5OPpjfB/D6FzP9mMpE02ZzrFX0ANeh0BAJdoXKOF2e7IbV+Og==}
+    dependencies:
+      fast-querystring: 1.1.2
+      fastify-plugin: 4.5.0
     dev: false
 
   /@fastify/send/2.1.0:
