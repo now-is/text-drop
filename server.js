@@ -25,7 +25,8 @@ fastify.route({
 	path: '/text-drop',
 	onRequest: fastify.csrfProtection,
 	handler: async (req, res) => {
-		return req.body
+		/* TODO save to drops/`new Date() .toISOString()`.txt */
+		res.send(req.body)
 	}
 })
 
