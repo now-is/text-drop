@@ -10,13 +10,19 @@ fastify.register(require('@fastify/static'), {
 	root: path.join(__dirname, 'public')
 })
 
-fastify.get('/',          (req, res) => res.sendFile('text-drop.html'))
-fastify.get('/succeeded', (req, res) => res.sendFile('text-drop-succeeded.html'))
-fastify.get('/failed',    (req, res) => res.sendFile('text-drop-failed.html'))
+/* trivial mapping to A-Z0-5 */
+const prefix_codes = new Uint8Array(8)
+crypto.getRandomValues(prefix_codes)
+const prefix = String.fromCharCode(... prefix_codes.map(n => { n >>= 3; return n + (n < 26 ? 97 : 22) }))
+fastify.log.info(`Planned prefix: ${prefix}`)
+
+fastify.get(`/${prefix}/`,          (req, res) => res.sendFile('text-drop.html'))
+fastify.get(`/${prefix}/succeeded`, (req, res) => res.sendFile('text-drop-succeeded.html'))
+fastify.get(`/${prefix}/failed`,    (req, res) => res.sendFile('text-drop-failed.html'))
 
 fastify.route({
 	method: 'POST',
-	path: '/text-drop-process',
+	path: `/${prefix}/text-drop-process`,
 	handler: async (req, res) => {
 		const drop_path = path.join(__dirname, 'drops', `${new Date() .toISOString()}.txt`)
 		try {
