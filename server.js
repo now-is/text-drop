@@ -2,8 +2,9 @@ const fastify = require('fastify')({
 	logger: true
 })
 
-const path = require('path')
 const fs = require('fs')
+const path = require('path')
+const replaceStream = require('replacestream')
 
 fastify.register(require('@fastify/formbody'))
 fastify.register(require('@fastify/static'), {
@@ -16,9 +17,18 @@ crypto.getRandomValues(prefix_codes)
 const prefix = String.fromCharCode(... prefix_codes.map(n => { n >>= 3; return n + (n < 26 ? 97 : 22) }))
 fastify.log.info(`Planned prefix: ${prefix}`)
 
-fastify.get(`/${prefix}/`,          (req, res) => res.sendFile('text-drop.html'))
 fastify.get(`/${prefix}/succeeded`, (req, res) => res.sendFile('text-drop-succeeded.html'))
 fastify.get(`/${prefix}/failed`,    (req, res) => res.sendFile('text-drop-failed.html'))
+
+fastify.get(`/${prefix}/`, async (req, res) => {
+	const stream = fs.createReadStream(
+		path.join(__dirname, 'public', 'text-drop.html'),
+		'utf8'
+	).pipe(replaceStream('%prefix%', prefix))
+
+	res.header('Content-Type', 'text/html')
+	await res.send(stream)
+})
 
 fastify.route({
 	method: 'POST',
