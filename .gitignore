@@ -1,3 +1,4 @@
 drops/*.txt
 node_modules/
+pnpm-lock.yaml
 tags
