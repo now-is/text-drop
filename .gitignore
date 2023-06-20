@@ -2,4 +2,5 @@ drops/*.txt
 listen_config.js
 node_modules/
 pnpm-lock.yaml
+private
 tags

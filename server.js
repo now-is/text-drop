@@ -4,6 +4,7 @@ const fastify = require('fastify')({
 
 const fs = require('fs')
 const path = require('path')
+const qrcode = require('qrcode')
 const replaceStream = require('replacestream')
 const listenConfig = require('./listen_config.js')
 
@@ -56,4 +57,17 @@ fastify.listen({
 		fastify.log.error(err)
 		process.exit(1)
 	}
+	qrcode.toFile(
+		path.join(__dirname, 'private', 'qr_url.png'),
+		`${address}/${prefix}/`,
+		function (err) {
+			if (err) {
+				fastify.log.error(err)
+				process.exit(1)
+			}
+			else {
+				fastify.log.info('qr code written to disk')
+			}
+		}
+	)
 })
