@@ -6,16 +6,17 @@ const path = require('path')
 const fs = require('fs')
 
 fastify.register(require('@fastify/formbody'))
-
-fastify.route({
-	method: 'GET',
-	path: '/',
-	handler: send_html_file('text-drop.html')
+fastify.register(require('@fastify/static'), {
+	root: path.join(__dirname, 'public')
 })
+
+fastify.get('/',          (req, res) => res.sendFile('text-drop.html'))
+fastify.get('/succeeded', (req, res) => res.sendFile('text-drop-succeeded.html'))
+fastify.get('/failed',    (req, res) => res.sendFile('text-drop-failed.html'))
 
 fastify.route({
 	method: 'POST',
-	path: '/text-drop',
+	path: '/text-drop-process',
 	handler: async (req, res) => {
 		const drop_path = path.join(__dirname, 'drops', `${new Date() .toISOString()}.txt`)
 		try {
