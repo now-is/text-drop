@@ -2,8 +2,9 @@ const fastify = require('fastify')({
 	logger: true
 })
 
-const fs = require('fs')
-const path = require('path')
+const crypto = require('node:crypto')
+const fs = require('node:fs')
+const path = require('node:path')
 const qrcode = require('qrcode')
 const replaceStream = require('replacestream')
 const listenConfig = require('./listen_config.js')
