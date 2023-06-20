@@ -7,13 +7,10 @@ const fs = require('fs')
 
 fastify.register(require('@fastify/formbody'))
 
-fastify.get('/', async (req, res) => {
-	const stream = fs.createReadStream(
-		path.join(__dirname, 'public', 'text-drop.html'),
-		'utf8'
-	)
-	res.header('Content-Type', 'text/html')
-	await res.send(stream)
+fastify.route({
+	method: 'GET',
+	path: '/',
+	handler: send_html_file('text-drop.html')
 })
 
 fastify.route({
@@ -31,3 +28,14 @@ fastify.listen({ port: 3000 }, function (err, address) {
 		process.exit(1)
 	}
 })
+
+function send_html_file (public_filename) {
+	return async (req, res) => {
+		const stream = fs.createReadStream(
+			path.join(__dirname, 'public', public_filename),
+			'utf8'
+		)
+		res.header('Content-Type', 'text/html')
+		await res.send(stream)
+	}
+}
