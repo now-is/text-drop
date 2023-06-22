@@ -49,7 +49,9 @@ fastify.route({
 })
 
 fastify.listen({
-	... listenConfig,
+	host: listenConfig.host || '0.0.0.0',
+	port: listenConfig.port || 0,
+	bodyLimit: 200000,
 	listenTextResolver: address => {
 		return `Listening at ${address}/${prefix}/`
 	}
