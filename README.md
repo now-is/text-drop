@@ -13,10 +13,12 @@ After `pnpm install` or similar, create, in the root directory:
 - A read-writable directory called `private`.
 - A `listen_config.js` file which looks like:
 
+```
 	module.exports = {
 		'host': '192.168.0.42',
 		'port': 3000
 	}
+```
 
 The `host` value should be an address with which you can reach your laptop from your phone. The `port` value should be free on your laptop—and it doesn't have to be sequence of the digits `3` and `0`!
 
@@ -26,7 +28,7 @@ Start the server with:
 
 	node server
 
-Then display private/qr_url.png with any out of band method, for instance on your laptop's screen, not peeked at by anybody else.
+Then display `private/qr_url.png` with any out of band method, for instance on your laptop's screen, not peeked at by anybody else.
 
 Load the URL from the QR code in your phone's browser, paste the text you want to transfer, and save.
 
