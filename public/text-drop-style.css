@@ -1,0 +1,39 @@
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+html, body { height: 100%; }
+body { line-height: 1.5; -webkit-font-smoothing: antialiased; }
+img, picture, video, canvas, svg { display: block; max-width: 100%; }
+input, button, textarea, select { font: inherit; }
+p, h1, h2, h3, h4, h5, h6 { overflow-wrap: break-word; }
+
+body {
+	background-color: black;
+	color: #c17300;
+	font-family: sans-serif;
+	padding: 8px;
+}
+
+fieldset, form {
+	border-width: 0;
+	margin-block: 0;
+	padding-block: 0;
+	padding-inline: 0;
+}
+
+textarea {
+	color: #009982;
+	background-color: #111;
+	border-color: #181818;
+	padding: 8px;
+	width: 100%;
+	height: min(40ch, 80vh);
+}
+
+input[type=submit] {
+	width: 100%;
+	padding: 8px 0;
+	background-color: #333;
+	border-width: thin;
+	color: #ec8d02;
+	text-transform: uppercase;
+}

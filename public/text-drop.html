@@ -2,53 +2,9 @@
 <html lang="en">
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
-	<title>Single-submission form</title>
-<style>
-	*, *::before, *::after { box-sizing: border-box; }
-	* { margin: 0; }
-	html, body { height: 100%; }
-	body { line-height: 1.5; -webkit-font-smoothing: antialiased; }
-	img, picture, video, canvas, svg { display: block; max-width: 100%; }
-	input, button, textarea, select { font: inherit; }
-	p, h1, h2, h3, h4, h5, h6 { overflow-wrap: break-word; }
+	<title>Text Drop</title>
+	<link rel="stylesheet" href="/style.css" />
 
-	body {
-		background-color: black;
-		color: #c17300;
-		font-family: sans-serif;
-	}
-
-	form {
-		margin-block-start: 8px;
-	}
-
-	fieldset {
-		border-width: 0;
-		padding-block-end: 0;
-	}
-
-	textarea {
-		color: #009982;
-		background-color: #111;
-		border-color: #181818;
-		padding: 8px;
-		width: calc(100% - 2 * 8px);
-		height: min(40ch, 80vh);
-	}
-
-	p:has(input[type=submit]) {
-		margin: 0 16px;
-	}
-
-	input[type=submit] {
-		width: calc(100% - 8px);
-		padding: 8px 0;
-		background-color: #333;
-		border-width: thin;
-		color: #ec8d02;
-		text-transform: uppercase;
-	}
-</style>
 <body>
 	<form action="/%prefix%/text-drop-process" method="post">
 		<fieldset>

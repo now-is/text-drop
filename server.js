@@ -19,8 +19,24 @@ const prefix_codes = new Uint8Array(8)
 crypto.getRandomValues(prefix_codes)
 const prefix = String.fromCharCode(... prefix_codes.map(n => { n >>= 3; return n + (n < 26 ? 97 : 22) }))
 
-fastify.get(`/${prefix}/succeeded`, (req, res) => res.sendFile('text-drop-succeeded.html'))
-fastify.get(`/${prefix}/failed`,    (req, res) => res.sendFile('text-drop-failed.html'))
+/* global! */
+fastify.decorate('shouldExit', false)
+
+function sendAndMaybeExit (path) {
+	return async (req, res) => {
+		await res.sendFile(path);
+		if (req.server.shouldExit) {
+			req.server.close(() => process.exit(1))
+		}
+	}
+}
+
+function sendAndShouldExit (path) {
+	return async (req, res) => {
+		await res.sendFile(path);
+		req.server.shouldExit = true;
+	}
+}
 
 fastify.get(`/${prefix}/`, async (req, res) => {
 	const stream = fs.createReadStream(
@@ -32,6 +48,10 @@ fastify.get(`/${prefix}/`, async (req, res) => {
 	await res.send(stream)
 })
 
+fastify.get(`/style.css`, sendAndMaybeExit('text-drop-style.css'))
+fastify.get(`/${prefix}/succeeded`, sendAndShouldExit('text-drop-succeeded.html'))
+fastify.get(`/${prefix}/failed`, sendAndShouldExit('text-drop-failed.html'))
+
 fastify.route({
 	method: 'POST',
 	path: `/${prefix}/text-drop-process`,
@@ -41,10 +61,9 @@ fastify.route({
 			fs.writeFileSync(drop_path, req.body.dropped_text);
 		} catch (err) {
 			fastify.log.error(`Could not write to ${drop_path}`)
-			res.status(503).send({ ok: false })
+			await res.redirect(503, `/${prefix}/failed`);
 		}
-		await res.send({ ok: true })
-		process.exit(1)
+		await res.redirect(`/${prefix}/succeeded`);
 	}
 })
 
