@@ -26,7 +26,7 @@ textarea {
 	border-color: #181818;
 	padding: 8px;
 	width: 100%;
-	height: min(40ch, 80vh);
+	height: min(80ch, calc(100vh - 8rem));
 }
 
 input[type=submit] {
