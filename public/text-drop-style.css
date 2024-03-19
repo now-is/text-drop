@@ -10,6 +10,7 @@ body {
 	background-color: black;
 	color: #c17300;
 	font-family: sans-serif;
+	font-size: 4vw;
 	padding: 8px;
 }
 
@@ -26,7 +27,7 @@ textarea {
 	border-color: #181818;
 	padding: 8px;
 	width: 100%;
-	height: min(80ch, calc(100vh - 8rem));
+	height: min(80ch, calc(100vh - 6em));
 }
 
 input[type=submit] {
